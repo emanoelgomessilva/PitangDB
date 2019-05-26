@@ -70,6 +70,7 @@ public class MovieService {
             filmeSave.setAno(filme.getRelease_date());
             filmeSave.setLingua(filme.getOriginal_language());
             filmeSave.setDuracao(filme.getRuntime());
+            filmeSave.setBackdrop(filme.getBackdrop_path());
 
             List<Pessoa> pessoas = new ArrayList<Pessoa>();
 
@@ -80,6 +81,7 @@ public class MovieService {
                 pessoa.setAltura("1,80");
                 pessoa.setGenero(pessoaDTO.getGender());
                 pessoa.setPais("us");
+                pessoa.setBackdrop(pessoaDTO.getProfile_path());
 
                 pessoas.add(pessoa);
 

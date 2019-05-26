@@ -1,37 +1,35 @@
 package com.pitang.projetomovie.projetomovie.controller;
 
-import com.pitang.projetomovie.projetomovie.models.Filme;
-import com.pitang.projetomovie.projetomovie.repository.FilmeRepository;
+import com.pitang.projetomovie.projetomovie.models.Serie;
+import com.pitang.projetomovie.projetomovie.repository.SerieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.data.domain.Pageable;
-import java.util.List;
-
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/filmes2")
-public class FilmeCotroller2 {
+@RequestMapping("/series2")
+public class SerieController2 {
 
     @Autowired
-    private FilmeRepository filmeRepository;
+    private SerieRepository serieRepository;
 
     @RequestMapping(value = "/find/{id}",method = RequestMethod.GET)
     public ResponseEntity<?> getById(@PathVariable(value = "id") long id){
 
-        Filme filme = filmeRepository.findById(id).get();
-        return  new ResponseEntity<>(filme, HttpStatus.OK);
+        Serie serie = serieRepository.findById(id).get();
+        return  new ResponseEntity<>(serie, HttpStatus.OK);
 
     }
 
     @RequestMapping(value = "findt/{titulo}",method = RequestMethod.GET)
     public ResponseEntity<?> getByTitle(Pageable pageable, @PathVariable String titulo){
 
-        Page<Filme> filme = filmeRepository.findByTituloContainingIgnoreCase(pageable,titulo);
-        return  new ResponseEntity<>(filme, HttpStatus.OK);
+        Page<Serie> serie = serieRepository.findByTituloContainingIgnoreCase(pageable,titulo);
+        return  new ResponseEntity<>(serie, HttpStatus.OK);
 
     }
 

@@ -71,6 +71,7 @@ public class SerieService {
                 serieSave.setDescricao("Default");
             }
             serieSave.setAno(serie.getFirst_air_date());
+            serieSave.setBackdrop(serie.getBackdrop_path());
 
             List<Pessoa> pessoas = new ArrayList<Pessoa>();
 
@@ -81,6 +82,7 @@ public class SerieService {
                 pessoa.setAltura("1,80");
                 pessoa.setGenero(pessoaDTO.getGender());
                 pessoa.setPais("us");
+                pessoa.setBackdrop(pessoaDTO.getProfile_path());
 
                 pessoas.add(pessoa);
 

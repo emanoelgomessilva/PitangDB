@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/filmes")
 public class FilmeController {
@@ -54,14 +54,21 @@ public class FilmeController {
 
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<?> putFilme(@RequestParam(name = "id",required = false) long id, Filme filme){
+    @RequestMapping(value = "/edit", method = RequestMethod.PUT)
+    public ResponseEntity<?> putFilme(@RequestParam(name = "id",required = false) long id, FilmeDTO filme){
 
-            return new ResponseEntity(filmeRepository.save(filme), HttpStatus.OK);
+            Filme filmeSave = filmeRepository.findById(id).get();
+            filmeSave.setTitulo(filme.getTitle());
+            filmeSave.setLingua(filme.getOriginal_language());
+            filmeSave.setDescricao(filme.getOverview());
+            filmeSave.setDuracao(filme.getRuntime());
+
+            return new ResponseEntity(filmeRepository.save(filmeSave), HttpStatus.OK);
 
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @Transactional(rollbackFor = Exception.class)
     public ResponseEntity<?> deleteFilme(@RequestParam(name = "id", required = false) long id){
 
             filmeRepository.deleteById(id);

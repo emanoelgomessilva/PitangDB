@@ -13,6 +13,9 @@ public class Pessoa implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column(name = "pe_cl_backdrop")
+    private String backdrop;
+
     @Column(name = "pe_cl_nome")
     private String nome;
 
@@ -65,6 +68,14 @@ public class Pessoa implements Serializable {
         this.genero = genero;
     }
 
+    public String getBackdrop() {
+        return backdrop;
+    }
+
+    public void setBackdrop(String backdrop) {
+        this.backdrop = backdrop;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -74,6 +85,7 @@ public class Pessoa implements Serializable {
 
         if (id != pessoa.id) return false;
         if (genero != pessoa.genero) return false;
+        if (backdrop != null ? !backdrop.equals(pessoa.backdrop) : pessoa.backdrop != null) return false;
         if (nome != null ? !nome.equals(pessoa.nome) : pessoa.nome != null) return false;
         if (altura != null ? !altura.equals(pessoa.altura) : pessoa.altura != null) return false;
         return pais != null ? pais.equals(pessoa.pais) : pessoa.pais == null;
@@ -82,6 +94,7 @@ public class Pessoa implements Serializable {
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (backdrop != null ? backdrop.hashCode() : 0);
         result = 31 * result + (nome != null ? nome.hashCode() : 0);
         result = 31 * result + (altura != null ? altura.hashCode() : 0);
         result = 31 * result + (pais != null ? pais.hashCode() : 0);

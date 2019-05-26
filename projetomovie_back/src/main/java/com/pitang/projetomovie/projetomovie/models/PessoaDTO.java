@@ -10,6 +10,7 @@ public class PessoaDTO {
     private long gender;
     private String name;
     private String place_of_birth;
+    private String profile_path;
 
     public long getId() {
         return id;
@@ -41,5 +42,13 @@ public class PessoaDTO {
 
     public void setPlace_of_birth(String place_of_birth) {
         this.place_of_birth = place_of_birth;
+    }
+
+    public String getProfile_path() {
+        return profile_path;
+    }
+
+    public void setProfile_path(String profile_path) {
+        this.profile_path = profile_path;
     }
 }

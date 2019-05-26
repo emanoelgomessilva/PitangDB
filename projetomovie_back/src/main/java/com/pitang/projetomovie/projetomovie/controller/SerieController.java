@@ -4,6 +4,7 @@ import com.pitang.projetomovie.projetomovie.Infraestrutura.MovieService;
 import com.pitang.projetomovie.projetomovie.Infraestrutura.SerieService;
 import com.pitang.projetomovie.projetomovie.models.Filme;
 import com.pitang.projetomovie.projetomovie.models.Serie;
+import com.pitang.projetomovie.projetomovie.models.SerieDTO;
 import com.pitang.projetomovie.projetomovie.repository.FilmeRepository;
 import com.pitang.projetomovie.projetomovie.repository.SerieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/series")
 public class SerieController {
@@ -42,14 +41,19 @@ public class SerieController {
 
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<?> putSerie(@RequestParam(name = "id",required = false) long id, Serie serie){
+    @RequestMapping(value = "/edit", method = RequestMethod.PUT)
+    public ResponseEntity<?> putSerie(@RequestParam(name = "id",required = false) long id, SerieDTO serie){
 
-        return new ResponseEntity(serieRepository.save(serie), HttpStatus.OK);
+        Serie serieSave = serieRepository.findById(id).get();
+
+        serieSave.setTitulo(serie.getName());
+        serieSave.setDescricao(serie.getOverview());
+
+        return new ResponseEntity(serieRepository.save(serieSave), HttpStatus.OK);
 
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteSerie(@RequestParam(name = "id", required = false) long id){
 
         serieRepository.deleteById(id);

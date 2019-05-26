@@ -16,10 +16,13 @@ public abstract class Programa implements IObjectPersistent<Long> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Column(name = "backdrop")
+    private String backdrop;
+
     @Column(name = "pr_cl_titulo")
     private String titulo;
 
-    @Size(min = 1,max = 5000)
+    @Size(min = 0,max = 5000)
     @Column(name = "pr_cl_descricao")
     private String descricao;
 
@@ -122,6 +125,14 @@ public abstract class Programa implements IObjectPersistent<Long> {
         this.duracao = duracao;
     }
 
+    public String getBackdrop() {
+        return backdrop;
+    }
+
+    public void setBackdrop(String backdrop) {
+        this.backdrop = backdrop;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -131,6 +142,7 @@ public abstract class Programa implements IObjectPersistent<Long> {
 
         if (id != programa.id) return false;
         if (duracao != programa.duracao) return false;
+        if (backdrop != null ? !backdrop.equals(programa.backdrop) : programa.backdrop != null) return false;
         if (titulo != null ? !titulo.equals(programa.titulo) : programa.titulo != null) return false;
         if (descricao != null ? !descricao.equals(programa.descricao) : programa.descricao != null) return false;
         if (pais != null ? !pais.equals(programa.pais) : programa.pais != null) return false;
@@ -143,6 +155,7 @@ public abstract class Programa implements IObjectPersistent<Long> {
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (backdrop != null ? backdrop.hashCode() : 0);
         result = 31 * result + (titulo != null ? titulo.hashCode() : 0);
         result = 31 * result + (descricao != null ? descricao.hashCode() : 0);
         result = 31 * result + (pais != null ? pais.hashCode() : 0);
